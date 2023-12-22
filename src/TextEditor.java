@@ -6,13 +6,22 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.filechooser.*;
 
+
+
+// REALLY WHAT I LEARNED HERE IS THERE ARE SO MANY WAYS TO SOLVE THE SAME 'PROJECT' OR APP. PER DARIO, THIS SOLUTION APPEARS
+// TO USE THE 'SWING' LIBRARY BASED ON THE IMPORTS. THERE IS ANOTHER TEXT EDITOR SOLUTION FROM GITHUB I'LL PULL TO COMPARE
+// AND CONTRAST THAT USES JAVAFX LIBRARY. LOOKS ENTIRELY DIFFERENT. APPEARS THAT SOME LIBRARIES ARE MORE DESIGNED TO BE LESS
+// VERBOSE BUT ALSO FORCE CERTAIN PATTERNS TO ACHIEVE THE EASIER WRITING. NOT SURE OF THE DIFFERENCE BETWEEN A LIBARY AND A
+// FRAMEWORK, BUT THERE APPEARS TO BE SOME OVERLAP? APPARENTLY A COMPANY OR SPECIFIC TEAM MAY PREFER SPECIFIC LIBRARIES OR
+// FRAMEWORKS THAT THEY WILL WANT YOU TO BE FAMILIAR WITH ONCE ON THE JOB. FOR NOW, THE BEST WAY TO LEARN IS TO NOT GET
+// SUCKED INTO TUTORIAL HELL (PER DARIO) AND GO START GOOGLING STUFF ABOUT 'HOW DO I DO X USING Y FRAMEWORK/LIBRARY?'
 public class TextEditor extends JFrame implements ActionListener{  // what exactly do JFrame and ActionListener do?
 
     JTextArea textArea; //what exactly is A JTextArea CLASS THAT IT CAN BE MODIFIED IN CONSTRUCTOR?
     JScrollPane scrollPane; // all these are just classes that i'm super unfamiliar with. i suspect java has lots of inbuilt classes like this
-    JLabel fontLabel;
+    JLabel fontLabel;// bar in pane that labels the font size selector
     JSpinner fontSizeSpinner; // allows for changing of font size via dropdown?
-    JButton fontColorButton;
+    JButton fontColorButton; // font color
     JComboBox fontBox;
 
     JMenuBar menuBar;
@@ -37,7 +46,7 @@ public class TextEditor extends JFrame implements ActionListener{  // what exact
         scrollPane.setPreferredSize(new Dimension(450,450)); // sets text box size slightly smaller than pane
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS); // scroll bar will always be present even if not needed
 
-        fontLabel = new JLabel("Font: ");
+        fontLabel = new JLabel("Font: "); // title for the font size
 
         fontSizeSpinner = new JSpinner();
         fontSizeSpinner.setPreferredSize(new Dimension(50,25)); // IS THIS THE DIMENSIONS OF THE DROP DOWN BAR?
@@ -52,28 +61,29 @@ public class TextEditor extends JFrame implements ActionListener{  // what exact
 
         });
 
-        fontColorButton = new JButton("Color");
-        fontColorButton.addActionListener(this);
+        fontColorButton = new JButton("Color"); // label for font color pull down
+        fontColorButton.addActionListener(this); // action listen makes it so it does something when clicking on it?
 
-        String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+        String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames(); // [ass in what appears
+        // to be an array of fonts from yet another inbuilt something to pass as field to JComboBox
 
-        fontBox = new JComboBox(fonts);
-        fontBox.addActionListener(this);
+        fontBox = new JComboBox(fonts); // what exactly is a combobox?
+        fontBox.addActionListener(this); // again, an action listener is needed
         fontBox.setSelectedItem("Arial");
 
         // ----- menubar -----
 
-        menuBar = new JMenuBar();
+        menuBar = new JMenuBar(); // create menu bar object
         fileMenu = new JMenu("File");
-        openItem = new JMenuItem("Open");
+        openItem = new JMenuItem("Open"); // barious menu items
         saveItem = new JMenuItem("Save");
         exitItem = new JMenuItem("Exit");
 
-        openItem.addActionListener(this);
-        saveItem.addActionListener(this);
+        openItem.addActionListener(this); //without an action listener, these are just buttons that don't actualyu do anything if clicked
+        saveItem.addActionListener(this); // the program will still run, but buttons don't work
         exitItem.addActionListener(this);
 
-        fileMenu.add(openItem);
+        fileMenu.add(openItem); // adding menu item objects to the menu object
         fileMenu.add(saveItem);
         fileMenu.add(exitItem);
         menuBar.add(fileMenu);
@@ -105,7 +115,7 @@ public class TextEditor extends JFrame implements ActionListener{  // what exact
         }
 
         if(e.getSource()==openItem) {
-            JFileChooser fileChooser = new JFileChooser();
+            JFileChooser fileChooser = new JFileChooser(); // some weird stuff about how we save and search for files?
             fileChooser.setCurrentDirectory(new File("."));
             FileNameExtensionFilter filter = new FileNameExtensionFilter("Text files", "txt");
             fileChooser.setFileFilter(filter);
